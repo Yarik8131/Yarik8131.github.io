@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НЕВОД — Ресторан арктической & морской кухни в Мурманске</title>
+
+    <!-- Favicon (Иконка во вкладке браузера) -->
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS CSS (Анимации при скролле) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            deep: '#0B1D3A',
+                            night: '#102A43',
+                            surface: '#183B56',
+                            card: '#162C46'
+                        },
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#E2B857',
+                            dark: '#AA8828'
+                        },
+                        pearl: '#E0FBFC',
+                        cyanAccent: '#48CAE4'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'gold-glow': '0 0 25px rgba(212, 175, 55, 0.25)',
+                        'cyan-glow': '0 0 25px rgba(72, 202, 228, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-panel {
+            background: rgba(16, 42, 67, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+        .glass-nav {
+            background: rgba(11, 29, 58, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #E2B857 0%, #D4AF37 50%, #AA8828 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-gold:hover {
+            box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+        .btn-outline-cyan {
+            border: 1px solid #48CAE4;
+            color: #48CAE4;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-cyan:hover {
+            background: rgba(72, 202, 228, 0.1);
+            box-shadow: 0 0 20px rgba(72, 202, 228, 0.3);
+            transform: translateY(-2px);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-ocean-deep text-pearl font-sans antialiased selection:bg-gold selection:text-ocean-deep overflow-x-hidden">
+
+    <!-- Header / Nav -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-gold/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                
+                <!-- Logo Header -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-full border border-gold/40 flex items-center justify-center bg-ocean-night group-hover:border-gold transition-colors overflow-hidden p-1.5 shadow-gold-glow">
+                        <img src="logo.png" alt="НЕВОД Logo" class="w-full h-full object-contain">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-2xl font-bold text-white tracking-widest uppercase group-hover:text-gold transition-colors">НЕВОД</span>
+                        <span class="text-[9px] text-gold-light tracking-widest uppercase font-medium">Арктическая & Морская кухня</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase">
+                    <a href="#about" class="hover:text-gold transition-colors">О нас</a>
+                    <a href="#features" class="hover:text-gold transition-colors">Атмосфера</a>
+                    <a href="#menu" class="hover:text-gold transition-colors">Меню</a>
+                    <a href="#reviews" class="hover:text-gold transition-colors">Отзывы</a>
+                    <a href="#contacts" class="hover:text-gold transition-colors">Контакты</a>
+                </div>
+
+                <!-- Right Action Header Area -->
+                <div class="hidden xl:flex items-center gap-4">
+                    <a href="https://vk.ru/nevod_51" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-full bg-ocean-surface border border-gold/20 text-pearl hover:text-gold hover:border-gold transition-all">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M15.073 2H8.937C3.318 2 2 3.318 2 8.937v6.126C2 20.682 3.318 22 8.937 22h6.126C20.682 22 22 20.682 22 15.063V8.937C22 3.318 20.682 2 15.073 2zm3.102 14.154h-1.396c-.528 0-.691-.421-1.636-1.373-.831-.818-1.189-.927-1.396-.927-.291 0-.374.083-.374.488v1.233c0 .337-.107.544-1.002.544-1.482 0-3.125-.898-4.282-2.572-1.745-2.484-2.222-4.348-2.222-4.731 0-.208.083-.4.498-.4h1.397c.374 0 .513.166.655.565.719 2.083 1.92 3.903 2.41 3.903.187 0 .272-.083.272-.544V11.23c-.063-.984-.582-1.069-.582-1.42 0-.166.142-.333.374-.333h2.196c.311 0 .428.166.428.523v2.853c0 .311.137.428.226.428.187 0 .337-.117.683-.463 1.055-1.183 1.802-3.003 1.802-3.003.097-.208.261-.4.636-.4h1.397c.415 0 .544.208.455.523-.179.833-1.928 3.318-1.928 3.318-.152.24-.21.353 0 .636.147.208.636.623 1.002 1.045 0 .002 1.036 1.127 1.396 1.879.127.272.03.428-.353.428z"/>
+                        </svg>
+                    </a>
+
+                    <div class="flex flex-col text-right text-[11px]">
+                        <a href="tel:+78152706789" class="hover:text-gold text-white font-medium">Доставка: +7 (8152) 70-67-89</a>
+                        <a href="tel:+79113006789" class="hover:text-gold text-gold-light font-medium">Бронь: +7 (911) 300-67-89</a>
+                    </div>
+
+                    <a href="tel:+79113006789" class="btn-gold text-ocean-deep px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider inline-block">
+                        Забронировать
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center lg:hidden gap-3">
+                    <a href="tel:+79113006789" class="btn-gold text-ocean-deep p-2.5 rounded-full">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-gradient-to-b from-ocean-deep via-ocean-night to-ocean-deep">
+        
+        <!-- Glowing Ambient Lights -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyanAccent/10 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="absolute bottom-10 left-1/3 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto my-auto py-12" data-aos="fade-up" data-aos-duration="1000">
+            
+            <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full glass-panel border-gold/30 text-gold mb-6">
+                <span class="text-xs font-bold tracking-widest uppercase">г. Мурманск • Дары Баренцева Моря</span>
+            </div>
+
+            <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-bold text-white tracking-wide uppercase leading-tight mb-6">
+                Ресторан <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-light via-gold to-gold-dark">Невод</span>
+            </h1>
+
+            <p class="text-base sm:text-xl text-pearl/90 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
+                Свежайшая рыба и морепродукты, аутентичная арктическая кухня и уютная атмосфера на берегу Мурманска.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-5 justify-center items-center mb-16">
+                <a href="tel:+78152706789" class="w-full sm:w-auto btn-gold text-ocean-deep px-8 py-4 rounded-full font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-3">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <span>Заказать доставку (+7 8152 70-67-89)</span>
+                </a>
+                <a href="tel:+79113006789" class="w-full sm:w-auto btn-outline-cyan px-8 py-4 rounded-full font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-3">
+                    <span>⚓ Забронировать столик</span>
+                </a>
+            </div>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap justify-center gap-3 text-xs font-semibold uppercase text-pearl/80">
+                <div class="flex items-center gap-2 bg-ocean-surface/60 border border-gold/20 px-4 py-2 rounded-full">
+                    <span>🦀</span> Камчатский краб
+                </div>
+                <div class="flex items-center gap-2 bg-ocean-surface/60 border border-gold/20 px-4 py-2 rounded-full">
+                    <span>🐟</span> Дары Баренцева моря
+                </div>
+                <div class="flex items-center gap-2 bg-ocean-surface/60 border border-gold/20 px-4 py-2 rounded-full">
+                    <span>🎶</span> Своя музыка на банкеты
+                </div>
+                <div class="flex items-center gap-2 bg-ocean-surface/60 border border-gold/20 px-4 py-2 rounded-full">
+                    <span>☕</span> Бизнес-ланчи от 500 ₽
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Animated Wave Divider Bottom -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
+            <svg class="relative block w-full h-12 sm:h-20 text-ocean-night" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.07,130.83,121.61,192,110.1,236.08,101.81,279.13,81.16,321.39,56.44Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-ocean-night relative z-10 border-b border-gold/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div data-aos="fade-right">
+                    <span class="text-gold font-bold text-xs uppercase tracking-widest block mb-2">Мурманский гастропаб</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl font-bold text-white uppercase mb-6 leading-tight">
+                        Вкус Севера в каждом блюде
+                    </h2>
+                    <p class="text-pearl/80 text-sm md:text-base leading-relaxed mb-6 font-light">
+                        Ресторан **«Невод»** — это место, где северные традиции сочетаются с современной кулинарией. Мы добываем и готовим рыбу и морепродукты так, чтобы сохранить их первозданный свежий вкус.
+                    </p>
+                    <p class="text-pearl/80 text-sm md:text-base leading-relaxed mb-8 font-light">
+                        Отборная треска, северный палтус, Камчатский краб и дары тундры — всё это ждёт вас в уютном пространстве на берегу Мурманска.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 border-t border-gold/20 pt-6">
+                        <div>
+                            <span class="font-serif text-3xl font-bold text-gold block">50 мест</span>
+                            <span class="text-xs text-pearl/70">Уютный банкетный зал</span>
+                        </div>
+                        <div>
+                            <span class="font-serif text-3xl font-bold text-cyanAccent block">100% Свежесть</span>
+                            <span class="text-xs text-pearl/70">Дары Баренцева моря</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4" data-aos="fade-left">
+                    <div class="glass-panel p-6 rounded-2xl border-gold/20 flex flex-col justify-between h-48">
+                        <span class="text-3xl">⚓</span>
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-white uppercase mb-1">Морской Стиль</h3>
+                            <p class="text-xs text-pearl/70">Элегантные акценты корабельной оснастки</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl border-gold/20 flex flex-col justify-between h-48 translate-y-6">
+                        <span class="text-3xl">🍷</span>
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-white uppercase mb-1">Банкеты</h3>
+                            <p class="text-xs text-pearl/70">Свадьбы, юбилеи, корпоративы</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-ocean-deep relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-cyanAccent font-bold text-xs uppercase tracking-widest block mb-2">Особый подход</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-bold text-white uppercase tracking-wider">Атмосфера и особенности</h2>
+                <div class="w-16 h-0.5 bg-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="glass-panel p-8 rounded-2xl hover:border-gold/50 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-2xl mb-6">🕯️</div>
+                    <h3 class="font-serif text-xl font-bold text-white uppercase mb-3">Приглушенный свет</h3>
+                    <p class="text-xs text-pearl/70 font-light leading-relaxed">
+                        Уютная атмосферная подсветка для спокойного личного общения и теплых семейных ужинов.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-gold/50 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-2xl mb-6">👨‍🍳</div>
+                    <h3 class="font-serif text-xl font-bold text-white uppercase mb-3">Знатоки кухни</h3>
+                    <p class="text-xs text-pearl/70 font-light leading-relaxed">
+                        Наш персонал глубоко знает тонкости арктических блюд и всегда поможет с выбором.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-gold/50 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-2xl mb-6">🎉</div>
+                    <h3 class="font-serif text-xl font-bold text-white uppercase mb-3">Банкетный зал</h3>
+                    <p class="text-xs text-pearl/70 font-light leading-relaxed">
+                        Просторный зал на 50 мест. Разрешаем ставить свою музыку для вашего праздника!
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-gold/50 transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-2xl mb-6">🚚</div>
+                    <h3 class="font-serif text-xl font-bold text-white uppercase mb-3">Быстрая доставка</h3>
+                    <p class="text-xs text-pearl/70 font-light leading-relaxed">
+                        Собственная служба быстрой доставки привезет дары моря горячими к вам домой.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section (Text-Based Elegant Minimalist Layout) -->
+    <section id="menu" class="py-24 bg-ocean-night relative border-t border-gold/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="text-gold font-bold text-xs uppercase tracking-widest block mb-2">Гастрономическая карта</span>
+                <h2 class="font-serif text-4xl sm:text-6xl font-bold text-white uppercase tracking-wider mb-4">Меню Ресторана</h2>
+                <p class="text-pearl/70 text-sm max-w-xl mx-auto font-light">
+                    Свежайшие дары Баренцева моря, аутентичные рецепты севера и сочные стейки.
+                </p>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="flex overflow-x-auto justify-start md:justify-center gap-2 mb-12 pb-4 no-scrollbar border-b border-gold/20" data-aos="fade-up">
+                <button onclick="switchCategory('cold')" id="tab-cold" class="menu-tab active-tab px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border border-gold/40 bg-gold text-ocean-deep">
+                    Холодные закуски
+                </button>
+                <button onclick="switchCategory('salads')" id="tab-salads" class="menu-tab px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border border-gold/20 text-pearl hover:text-gold">
+                    Салаты
+                </button>
+                <button onclick="switchCategory('soups')" id="tab-soups" class="menu-tab px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border border-gold/20 text-pearl hover:text-gold">
+                    Первые блюда
+                </button>
+                <button onclick="switchCategory('steak')" id="tab-steak" class="menu-tab px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border border-gold/20 text-pearl hover:text-gold">
+                    Стейк меню (Рыба)
+                </button>
+                <button onclick="switchCategory('seafood')" id="tab-seafood" class="menu-tab px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border border-gold/20 text-pearl hover:text-gold">
+                    Рыба & Морепродукты
+                </button>
+                <button onclick="switchCategory('meat')" id="tab-meat" class="menu-tab px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border border-gold/20 text-pearl hover:text-gold">
+                    Мясные блюда
+                </button>
+                <button onclick="switchCategory('sides')" id="tab-sides" class="menu-tab px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border border-gold/20 text-pearl hover:text-gold">
+                    Закуски, Гарниры & Десерты
+                </button>
+                <button onclick="switchCategory('drinks')" id="tab-drinks" class="menu-tab px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border border-gold/20 text-pearl hover:text-gold">
+                    Напитки & Кофе
+                </button>
+            </div>
+
+            <!-- Menu Content Lists -->
+            <div id="menu-content" class="min-h-[400px]">
+                
+                <!-- Cold Snacks -->
+                <div id="cat-cold" class="menu-category grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Селёдочка под водочку</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">550 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Икра лососевая</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">900 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Рулетики из лосося</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">750 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Мясная нарезка</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Язык говяжий с хреном и помидором</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Сырное ассорти</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Сало домашнее</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">550 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Дары лета</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">550 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Рыбная нарезка</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">900 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Маслины, оливки</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">200 ₽</span>
+                    </div>
+                </div>
+
+                <!-- Salads -->
+                <div id="cat-salads" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Легкий бриз</h4>
+                            <span class="text-xs text-pearl/50">250 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">1 100 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Флорентин</h4>
+                            <span class="text-xs text-pearl/50">250 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">950 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Кани</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">950 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Сполохи</h4>
+                            <span class="text-xs text-pearl/50">240 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">900 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Барский</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">800 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Цезарь с курицей</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Греческий</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Лето</h4>
+                            <span class="text-xs text-pearl/50">180 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                </div>
+
+                <!-- Soups -->
+                <div id="cat-soups" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-gold uppercase">Уха ПО-ФИНСКИ</h4>
+                            <span class="text-xs text-pearl/50">Фирменный суп</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">1 100 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Уха Поморская</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">950 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Суп Тундра</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">900 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Тыквенный с Камчатским крабом</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">850 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Солянка мясная</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Куриный бульон с яйцом</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">450 ₽</span>
+                    </div>
+                </div>
+
+                <!-- Fish Steaks -->
+                <div id="cat-steak" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Филе лосося</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">1 000 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Филе палтуса</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">950 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Лосось</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">900 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Палтус</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">850 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Треска</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">850 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Окунь морской</h4>
+                            <span class="text-xs text-pearl/50">200 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                </div>
+
+                <!-- Seafood -->
+                <div id="cat-seafood" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-gold uppercase">Тарелка горячих морепродуктов</h4>
+                            <span class="text-xs text-pearl/50">300 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">1 300 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Камбала в ореховом соусе</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">1 000 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Кальмар фаршированный</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">950 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Треска Северянка</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">950 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Мясо краба</h4>
+                            <span class="text-xs text-pearl/50">100 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">900 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Краб запеченный</h4>
+                            <span class="text-xs text-pearl/50">150 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">800 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Скумбрия запеченная</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">700 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Креветки</h4>
+                            <span class="text-xs text-pearl/50">100 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">500 ₽</span>
+                    </div>
+                </div>
+
+                <!-- Meat -->
+                <div id="cat-meat" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Коппа стейк свиной</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">1 200 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-gold uppercase">Филе оленя</h4>
+                            <span class="text-xs text-pearl/50">Арктический деликатес</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">1 000 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Бефстроганов из оленины</h4>
+                            <span class="text-xs text-pearl/50">250 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">900 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Грудка куриная с овощами гриль</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">800 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Бургер по-Мурмански</h4>
+                            <span class="text-xs text-pearl/50">350 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">700 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Мясо по-французски</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">700 ₽</span>
+                    </div>
+                </div>
+
+                <!-- Sides & Desserts -->
+                <div id="cat-sides" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Расстегай с палтусом</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">300 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Тарталетка с лососем / креветкой</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">350 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Баклажан фаршированный</h4>
+                            <span class="text-xs text-pearl/50">280 г</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">700 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Овощи на гриле</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">700 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Драники</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">650 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Картофель (по-деревенски / Фри / Пюре)</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">300 – 350 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-gold uppercase">Блины с морошковым вареньем</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">200 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Чизкейк / Мороженое</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">300 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Фруктовая тарелка</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">1 000 ₽</span>
+                    </div>
+                </div>
+
+                <!-- Drinks -->
+                <div id="cat-drinks" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-gold uppercase">Морс брусничный / морошковый</h4>
+                            <span class="text-xs text-pearl/50">1 л</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">350 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Сок в ассортименте</h4>
+                            <span class="text-xs text-pearl/50">1 л</span>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">350 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Кофе Эспрессо / Американо</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">200 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b border-gold/10 pb-3">
+                        <div>
+                            <h4 class="font-serif text-xl font-bold text-white uppercase">Кофе Капучино</h4>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gold">300 ₽</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Call To Order -->
+            <div class="mt-16 text-center" data-aos="fade-up">
+                <a href="tel:+78152706789" class="btn-gold text-ocean-deep px-10 py-4 rounded-full font-bold text-xs uppercase tracking-widest inline-flex items-center gap-3">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <span>Заказать доставку на дом</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 bg-ocean-deep relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-gold font-bold text-xs uppercase tracking-widest block mb-2">Впечатления</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-bold text-white uppercase tracking-wider">Отзывы наших гостей</h2>
+                <div class="w-16 h-0.5 bg-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between border-gold/20" data-aos="fade-up" data-aos-delay="100">
+                    <div>
+                        <div class="flex text-gold mb-4 text-sm">★★★★★</div>
+                        <p class="text-xs text-pearl/80 italic leading-relaxed font-light mb-6">
+                            "Попробовали сливочный суп с крабами, гребешки и блины с морошковым вареньем. Объедение! Официанты — настоящие знатоки арктической кухни."
+                        </p>
+                    </div>
+                    <div class="border-t border-gold/10 pt-4">
+                        <span class="font-serif text-base font-bold text-white block">Ольга Щедрова</span>
+                        <span class="text-[10px] text-pearl/50 uppercase tracking-wider">Гость ресторана</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between border-gold/20" data-aos="fade-up" data-aos-delay="200">
+                    <div>
+                        <div class="flex text-gold mb-4 text-sm">★★★★★</div>
+                        <p class="text-xs text-pearl/80 italic leading-relaxed font-light mb-6">
+                            "Отмечали юбилей родителей, всё на высшем уровне. Внимательный персонал, разрешили поставить свою музыку, еда невероятная!"
+                        </p>
+                    </div>
+                    <div class="border-t border-gold/10 pt-4">
+                        <span class="font-serif text-base font-bold text-white block">Полина К.</span>
+                        <span class="text-[10px] text-pearl/50 uppercase tracking-wider">Банкет</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between border-gold/20" data-aos="fade-up" data-aos-delay="300">
+                    <div>
+                        <div class="flex text-gold mb-4 text-sm">★★★★★</div>
+                        <p class="text-xs text-pearl/80 italic leading-relaxed font-light mb-6">
+                            "Свет приглушённый, музыка не орёт, можно спокойно пообщаться. Морепродукты свежайшие!"
+                        </p>
+                    </div>
+                    <div class="border-t border-gold/10 pt-4">
+                        <span class="font-serif text-base font-bold text-white block">Вероника Чернышева</span>
+                        <span class="text-[10px] text-pearl/50 uppercase tracking-wider">Гость ресторана</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contacts Section -->
+    <section id="contacts" class="py-20 bg-ocean-night relative border-t border-gold/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div data-aos="fade-right">
+                    <span class="text-gold font-bold text-xs uppercase tracking-widest block mb-2">Локация и Связь</span>
+                    <h2 class="font-serif text-4xl font-bold text-white uppercase mb-6">Ждем вас в гости</h2>
+                    
+                    <div class="space-y-6 text-sm">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold shrink-0">📍</div>
+                            <div>
+                                <h4 class="font-bold text-white uppercase">Адрес</h4>
+                                <p class="text-pearl/70 font-light">г. Мурманск, Траловая ул., 49В</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold shrink-0">⏰</div>
+                            <div>
+                                <h4 class="font-bold text-white uppercase">График работы</h4>
+                                <p class="text-pearl/70 font-light">Пн – Пт: 12:00 – 00:00</p>
+                                <p class="text-pearl/70 font-light">Сб: 12:00 – 02:00</p>
+                                <p class="text-pearl/70 font-light text-gold-light">Вс: Выходной</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold shrink-0">📞</div>
+                            <div>
+                                <h4 class="font-bold text-white uppercase">Телефоны</h4>
+                                <p class="text-pearl/70 font-light">Доставка: <a href="tel:+78152706789" class="text-gold hover:underline font-medium">+7 (8152) 70-67-89</a></p>
+                                <p class="text-pearl/70 font-light">Бронирование: <a href="tel:+79113006789" class="text-gold hover:underline font-medium">+7 (911) 300-67-89</a></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold shrink-0">💬</div>
+                            <div>
+                                <h4 class="font-bold text-white uppercase">Социальные сети</h4>
+                                <a href="https://vk.ru/nevod_51" target="_blank" rel="noopener noreferrer" class="text-cyanAccent hover:underline text-xs">Сообщество ВКонтакте (vk.ru/nevod_51)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yandex Map Widget -->
+                <div class="h-[400px] rounded-2xl overflow-hidden glass-panel border-gold/30 relative" data-aos="fade-left">
+                    <iframe src="https://yandex.ru/map-widget/v1/org/nevod/1190541182/?ll=33.061658%2C68.962128&z=14" width="100%" height="100%" frameborder="0" allowfullscreen="true" class="w-full h-full filter brightness-90 contrast-110"></iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ocean-deep border-t border-gold/10 py-12 text-center text-xs text-pearl/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full border border-gold/30 p-1 flex items-center justify-center">
+                    <img src="logo.png" alt="НЕВОД" class="w-full h-full object-contain">
+                </div>
+                <span class="font-serif text-lg font-bold text-white uppercase">НЕВОД</span>
+            </div>
+            <p>© Ресторан арктической & морской кухни «Невод». Все права защищены.</p>
+            <a href="https://vk.ru/nevod_51" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline">vk.ru/nevod_51</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            duration: 800
+        });
+
+        // Menu Tab Switcher
+        function switchCategory(cat) {
+            const tabs = document.querySelectorAll('.menu-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-gold', 'text-ocean-deep');
+                tab.classList.add('text-pearl');
+            });
+
+            const activeTab = document.getElementById(`tab-${cat}`);
+            if (activeTab) {
+                activeTab.classList.add('bg-gold', 'text-ocean-deep');
+                activeTab.classList.remove('text-pearl');
+            }
+
+            const categories = document.querySelectorAll('.menu-category');
+            categories.forEach(el => el.classList.add('hidden'));
+
+            const activeCat = document.getElementById(`cat-${cat}`);
+            if (activeCat) {
+                activeCat.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
